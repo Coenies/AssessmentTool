@@ -1,3 +1,4 @@
+﻿using Assessment.Models;
 using Assessment.ORM;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -18,26 +19,36 @@ builder.Services.AddSwaggerGen(c => { //<-- NOTE 'Add' instead of 'Configure'
         Version = "v3"
     });
 });
-builder.Services.AddSingleton<MemoryCache>(options =>
-{
-    return new MemoryCache(new MemoryCacheOptions { SizeLimit = 1240000 });
-});
+builder.Services.AddSingleton<Assessment.CoinMarketCapAPI.API>();
+builder.Services.AddTransient<Assessment.Models.DataStore>();
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<Assessment.Models.IDataItemRepository, Assessment.Models.DateItemEFRepository>();
 
 builder.Services.AddDbContext<EFModel>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EFModelConnectionString")));
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EFModelConnectionString"));
+});
+
+
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<EFModel>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
+
 
 app.MapControllers();
 

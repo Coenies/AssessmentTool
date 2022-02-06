@@ -12,9 +12,10 @@
     "Assessment": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "assessment",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CoinMarkKey": "54958a2e-b85d-4b47-a8ab-0a84629a1398"
       },
       "applicationUrl": "https://localhost:7085;http://localhost:5085",
       "dotnetRunMessages": true
@@ -24,7 +25,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CoinMarkKey": "54958a2e-b85d-4b47-a8ab-0a84629a1398"
       }
     },
     "Docker": {

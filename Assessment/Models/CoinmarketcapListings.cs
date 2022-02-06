@@ -31,15 +31,17 @@ namespace Assessment.Models.CoinmarketCap
         public string slug { get; set; }
         public int cmc_rank { get; set; }
         public int num_market_pairs { get; set; }
-        public int circulating_supply { get; set; }
-        public int total_supply { get; set; }
-        public int max_supply { get; set; }
+        public double circulating_supply { get; set; }
+        public double total_supply { get; set; }
+        public double? max_supply { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime last_updated { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime date_added { get; set; }
         public string[] tags { get; set; }
-        public object platform { get; set; }
+        public float? self_reported_circulating_supply { get; set; }
+        public float? self_reported_market_cap { get; set; }
+        public Platform platform { get; set; }
         public Quote quote { get; set; }
     }
 
@@ -54,16 +56,25 @@ namespace Assessment.Models.CoinmarketCap
     public class Fiat
     {
         public float price { get; set; }
-        public int volume_24h { get; set; }
-        public float volume_change_24h { get; set; }
+        public double volume_24h { get; set; }
+        public double volume_change_24h { get; set; }
         public float percent_change_1h { get; set; }
         public float percent_change_24h { get; set; }
         public float percent_change_7d { get; set; }
-        public float market_cap { get; set; }
-        public int market_cap_dominance { get; set; }
-        public float fully_diluted_market_cap { get; set; }
+        public double market_cap { get; set; }
+        public float market_cap_dominance { get; set; }
+        public double fully_diluted_market_cap { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime last_updated { get; set; }
+    }
+
+    public class Platform
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string symbo { get; set; }
+        public string slug { get; set; }
+        public string token_address { get; set; }
     }
 
 }
